@@ -105,7 +105,7 @@ class MonthlyDonationSummaryView(APIView):
             "donations": serializer.data
         }, status=status.HTTP_200_OK
 
-####For razorpay gateway payment
+####For razorpay gateway payment(Here i don't get actual id because signup verification takes some time for it so here i add only code and replace the id)
 class CreateOrderAPIView(APIView):
     def post(self, request):
         amount = request.data.get('amount')  # Amount in Rupees
