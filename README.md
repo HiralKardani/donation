@@ -38,6 +38,7 @@ Notes
 Database used: SQLite (default Django)
 myenv/ (virtual environment) is not pushed to GitHub (ignored in .gitignore)
 OTP sending is simulated in local development.
+Razorpay gateway payment is implemented but i don't get the actual is because of account takes time so here i only add code. For check the working you need to replace your configuration for payment.
 
 API endpoints:
 Login with phone number (POST) - /api/login/
