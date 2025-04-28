@@ -7,6 +7,8 @@ from django.db import models
 from .serializers import *
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
+import razorpay
+from django.conf import settings
 
 # Create your views here.
 class SendOTPView(APIView):
@@ -101,4 +103,27 @@ class MonthlyDonationSummaryView(APIView):
             "year": year,
             "total_donation_amount": str(total_amount),
             "donations": serializer.data
-        }, status=status.HTTP_200_OK)
+        }, status=status.HTTP_200_OK
+
+####For razorpay gateway payment
+class CreateOrderAPIView(APIView):
+    def post(self, request):
+        amount = request.data.get('amount')  # Amount in Rupees
+        if not amount:
+            return Response({"error": "Amount is required"}, status=400)
+
+        client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+        
+        data = {
+            "amount": int(amount) * 100,  # Razorpay needs paise
+            "currency": "INR",
+            "payment_capture": 1
+        }
+        order = client.order.create(data=data)
+
+        return Response({
+            "order_id": order['id'],
+            "amount": amount,
+            "currency": "INR",
+            "razorpay_key_id": settings.RAZORPAY_KEY_ID
+        })
