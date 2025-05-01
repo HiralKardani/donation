@@ -7,4 +7,5 @@ urlpatterns = [
     path('donate/', DonationView.as_view(), name='donate'),
     path('payment-history/', PaymentHistoryView.as_view(), name='payment-history'),
     path('monthly-summary/', MonthlyDonationSummaryView.as_view(), name='monthly-summary'),
+    # path('create-razorpay-order/', CreateOrderAPIView.as_view(), name='create-razorpay-order'),
 ]

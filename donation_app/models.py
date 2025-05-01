@@ -1,8 +1,11 @@
 from django.db import models
 
-# Create your models here.
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
+import random
+from django.utils import timezone
+
+# Create your models here.
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, phone, password=None, **extra_fields):
@@ -33,8 +36,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.phone
 
 
-import random
-from django.utils import timezone
+
 
 class OTP(models.Model):
     phone = models.CharField(max_length=15)
